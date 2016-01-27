@@ -8,8 +8,15 @@ number = do
   ds <- many1 digit
   return (read ds)
 
+calc :: Parser Integer
+calc = do
+  x <- number
+  char '+'
+  y <- number
+  return $ x + y
+
 run :: String -> String
-run input = case parse number "Test" input of
+run input = case parse calc "Test" input of
                  Left err  -> show err
                  Right val -> show val
 
